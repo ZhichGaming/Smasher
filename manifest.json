@@ -1,0 +1,14 @@
+{
+    "name": "Smasher",
+    "version": "1.0.0",
+    "description": "Smasher, a chrome extention that completes your Smash Education homework!",
+    "manifest_version": 3,
+    "author": "Zhich",
+    "permissions": [
+        "https://login.smasheducation.com/"
+    ],
+    "action":{
+        "default_popup": "index.html",
+        "default_title": "Smasher"
+    }
+}
