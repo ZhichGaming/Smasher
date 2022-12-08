@@ -6,35 +6,40 @@ let supportedQuestions = ["escucha_selecciona", "foto_texto_escribe", "relaciona
 if (currentUrl.includes("smasheducation.com") && supportedQuestions.includes(exerciseType)) {
     var confirmation = confirm("Are you sure you want to complete this page?");
 
-    console.log(exerciseType)
     if (confirmation == true) {
-        switch(exerciseType) {
-            case "escucha_selecciona":
-                confirm
-                associateAudioToImage()
-                break
-            case "foto_texto_escribe":
-                listenAndAnswerPhrase()
-                break
-            case "relaciona_imagen":
-                associateTextToImage()
-                break
-            case "relacionando":
-                associateVerbs()
-                break
-            case "palabras_recordar":
-                speakText()
-                break
-            case "revuelto":
-                reorderText()
-                break
-            case "ahorcado":
-                hangmanButOnRiver()
-                break
-            case "completando_texto_escribe":
-                multipleBlanksAfterListening()
-                break
-        }
+        // let retakeButton = document.getElementById("RetakeProgressControl")
+        // retakeButton.click()
+
+        executeExercise()
+    }
+}
+
+function executeExercise() {
+    switch(exerciseType) {
+        case "escucha_selecciona":
+            associateAudioToImage()
+            break
+        case "foto_texto_escribe":
+            listenAndAnswerPhrase()
+            break
+        case "relaciona_imagen":
+            associateTextToImage()
+            break
+        case "relacionando":
+            associateVerbs()
+            break
+        case "palabras_recordar":
+            speakText()
+            break
+        case "revuelto":
+            reorderText()
+            break
+        case "ahorcado":
+            hangmanButOnRiver()
+            break
+        case "completando_texto_escribe":
+            multipleBlanksAfterListening()
+            break
     }
 }
 
@@ -64,7 +69,6 @@ function associateVerbs() {
             // If the index of the possible answer + 1 has the same value as attribute of "data-sequence" of answerElements at the question index
             if (buttonElements[j].getAttribute("data-sequence") == answerElements[i].getAttribute("data-sequence")) {
                 buttonElements[j].children[0].click()
-                console.log(buttonElements[j].children[0])
                 break
             }
         }
@@ -92,10 +96,14 @@ function listenAndAnswerPhrase() {
 
 // Associate audio to image 
 function associateAudioToImage() {
-    let currentSentence = document.getElementsByClassName("carousel-item-wrapper active")[0]
-    let currentSentenceId = currentSentence.getAttribute("data-sequence")
+    let sentences = document.getElementsByClassName("carousel-item-wrapper")
 
-    document.getElementById(`resultBox_${currentSentenceId}`).click()
+    for (let i = 0; i < sentences.length; i++) {
+        let currentSentence = sentences[i]
+        let currentSentenceId = currentSentence.getAttribute("data-sequence")
+
+        document.getElementById(`resultBox_${currentSentenceId}`).click()
+    }
 }
 
 // Reorder text
