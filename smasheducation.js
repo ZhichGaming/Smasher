@@ -1,7 +1,7 @@
 
 var currentUrl = window.location.href.replace(window.location.search,'')
 let exerciseType = currentUrl.split("/").slice(-1)[0]
-let supportedQuestions = ["escucha_selecciona", "foto_texto_escribe", "relaciona_imagen", "relacionando", "palabras_recordar", "revuelto", "ahorcado", "completando_texto_escribe"]
+let supportedQuestions = ["escucha_selecciona", "foto_texto_escribe", "relaciona_imagen", "relacionando", "palabras_recordar", "revuelto", "ahorcado", "completando_texto_escribe", "completando_texto", "comprension_oral_larga"]
 
 if (currentUrl.includes("smasheducation.com") && supportedQuestions.includes(exerciseType)) {
     var confirmation = confirm("Are you sure you want to complete this page?");
@@ -16,6 +16,11 @@ if (currentUrl.includes("smasheducation.com") && supportedQuestions.includes(exe
 
 function executeExercise() {
     switch(exerciseType) {
+        case "comprension_oral_larga":
+            document.getElementsByClassName("meadiarequiered-activities-next")[0].click()
+            document.getElementsByClassName("ms-act-section-btn-next2 floating-right")[0].click()
+            doRadioButtons()
+            break
         case "escucha_selecciona":
             associateAudioToImage()
             break
@@ -40,12 +45,15 @@ function executeExercise() {
         case "completando_texto_escribe":
             multipleBlanksAfterListening()
             break
+        case "completando_texto":
+            completeText()
+            break
     }
 }
 
 // Radio buttons after listening to audio
 function doRadioButtons() {
-    for (let i = 1; i <= 11; i++) {
+    for (let i = 1; i < 11; i++) {
         for (let j = 1; j <= 3; j++) {
             let element = document.querySelector(`[id="opGroup${i}"][tabindex="${j}"]`)
             let answer = element.getAttribute("data-answer")
@@ -55,6 +63,8 @@ function doRadioButtons() {
             }
         }
     }
+
+    document.getElementsByClassName("ms-act-section-btn-send floating-right")[0].click()
 }
 
 // Associate verbs(this was a pain)
@@ -147,5 +157,31 @@ function speakText() {
     let audio = document.querySelector("#system_smmb_wavesurfer > audio")
     alert(`This is the example audio file, you can use it to play it on speaker and press record. However, doing it yourself is prefered.`)
     window.open(audio, "_blank");
+}
+
+// Complete text after lisening
+function completeText() {
+    let buttons = document.getElementsByClassName("draggme")
+    var buttonsArray = Array.from(buttons)
+
+    
+    let sorted = buttonsArray.sort(function(a, b) {
+        // get the values of the attributes you want to sort by
+        var valueA = parseInt(a.getAttribute("data-sequence"));
+        var valueB = parseInt(b.getAttribute("data-sequence"));
+    
+        // compare the values and return the result
+        if (valueA < valueB) {
+            return -1;
+        } else if (valueA > valueB) {
+            return 1;
+        } else {
+            return 0;
+        }
+    });
+
+    for (let i = 0; i < sorted.length; i++) {
+        sorted[i].click()
+    }
 }
 
