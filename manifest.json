@@ -19,8 +19,7 @@
     "content_scripts": [
       {
         "matches": ["https://login.smasheducation.com/*"],
-        "js": ["smasheducation
-        ..js"]
+        "js": ["smasheducation.js"]
       }
     ]
 }
