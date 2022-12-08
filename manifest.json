@@ -4,11 +4,23 @@
     "description": "Smasher, a chrome extention that completes your Smash Education homework!",
     "manifest_version": 3,
     "author": "Zhich",
-    "permissions": [
-        "https://login.smasheducation.com/"
-    ],
     "action":{
-        "default_popup": "index.html",
         "default_title": "Smasher"
-    }
+    },
+    "icons": {
+        "16":  "icon_16x16.png",
+        "32":  "icon_32x32.png",
+        "128": "icon_128x128.png"
+    },
+    "host_permissions": [
+        "https://login.smasheducation.com/"
+    ], 
+    "permissions": ["tabs"],
+    "content_scripts": [
+      {
+        "matches": ["https://login.smasheducation.com/*"],
+        "js": ["smasheducation
+        ..js"]
+      }
+    ]
 }

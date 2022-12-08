@@ -1,3 +1,43 @@
+
+var currentUrl = window.location.href.replace(window.location.search,'')
+let exerciseType = currentUrl.split("/").slice(-1)[0]
+let supportedQuestions = ["escucha_selecciona", "foto_texto_escribe", "relaciona_imagen", "relacionando", "palabras_recordar", "revuelto", "ahorcado", "completando_texto_escribe"]
+
+if (currentUrl.includes("smasheducation.com") && supportedQuestions.includes(exerciseType)) {
+    var confirmation = confirm("Are you sure you want to complete this page?");
+
+    console.log(exerciseType)
+    if (confirmation == true) {
+        switch(exerciseType) {
+            case "escucha_selecciona":
+                confirm
+                associateAudioToImage()
+                break
+            case "foto_texto_escribe":
+                listenAndAnswerPhrase()
+                break
+            case "relaciona_imagen":
+                associateTextToImage()
+                break
+            case "relacionando":
+                associateVerbs()
+                break
+            case "palabras_recordar":
+                speakText()
+                break
+            case "revuelto":
+                reorderText()
+                break
+            case "ahorcado":
+                hangmanButOnRiver()
+                break
+            case "completando_texto_escribe":
+                multipleBlanksAfterListening()
+                break
+        }
+    }
+}
+
 // Radio buttons after listening to audio
 function doRadioButtons() {
     for (let i = 1; i <= 11; i++) {
@@ -33,7 +73,7 @@ function associateVerbs() {
 
 // Associate text to image(too hard)
 function associateTextToImage() {
-
+    alert("This is too much of a pain to automate so do it yourself.")
 }
 
 // Listen and answer singular word
@@ -97,5 +137,7 @@ function multipleBlanksAfterListening() {
 // Speak text
 function speakText() {
     let audio = document.querySelector("#system_smmb_wavesurfer > audio")
+    alert(`This is the example audio file, you can use it to play it on speaker and press record. However, doing it yourself is prefered.`)
+    window.open(audio, "_blank");
 }
 
