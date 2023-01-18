@@ -1,7 +1,7 @@
 
 var currentUrl = window.location.href.replace(window.location.search,'')
 let exerciseType = currentUrl.split("/").slice(-1)[0]
-let supportedQuestions = ["escucha_selecciona", "foto_texto_escribe", "relaciona_imagen", "relacionando", "palabras_recordar", "revuelto", "ahorcado", "completando_texto_escribe", "completando_texto", "comprension_oral_larga"]
+let supportedQuestions = ["escucha_selecciona", "foto_texto_escribe", "relaciona_imagen", "relacionando", "palabras_recordar", "revuelto", "ahorcado", "completando_texto_escribe", "completando_texto", "comprension_oral_larga", "comprension_escrita"]
 
 if (currentUrl.includes("smasheducation.com") && supportedQuestions.includes(exerciseType)) {
     var confirmation = confirm("Are you sure you want to complete this page?");
@@ -47,6 +47,9 @@ function executeExercise() {
             break
         case "completando_texto":
             completeText()
+            break
+        case "comprension_escrita":
+            writtenComprehension()
             break
     }
 }
@@ -182,6 +185,18 @@ function completeText() {
 
     for (let i = 0; i < sorted.length; i++) {
         sorted[i].click()
+    }
+}
+
+function writtenComprehension() {
+    for (let i = 0; i < 3; i++) {
+        let element = document.querySelector(`#masterActivity > div.activity-content.actividad > div > div:nth-child(3) > ul`).children[i]
+        let answer = element.getAttribute("data-sequence")
+
+        if (answer == "1") {
+            console.log(element.children[1])
+            element.children[1].click()
+        }
     }
 }
 
