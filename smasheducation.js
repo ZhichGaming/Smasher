@@ -1,9 +1,22 @@
 
 var currentUrl = window.location.href.replace(window.location.search,'')
 let exerciseType = currentUrl.split("/").slice(-1)[0]
-let supportedQuestions = ["escucha_selecciona", "foto_texto_escribe", "relaciona_imagen", "relacionando", "palabras_recordar", "revuelto", "ahorcado", "completando_texto_escribe", "completando_texto", "comprension_oral_larga", "comprension_escrita"]
+let supportedQuestions = {
+    "comprension_audio": doRadioButtons, 
+    "escucha_selecciona": associateAudioToImage, 
+    "foto_texto_escribe": listenAndAnswerPhrase, 
+    "relaciona_imagen": associateTextToImage, 
+    "relacionando": associateVerbs, 
+    "palabras_recordar": speakText, 
+    "revuelto": reorderText, 
+    "ahorcado": hangmanButOnRiver, 
+    "completando_texto_escribe": multipleBlanksAfterListening, 
+    "completando_texto": completeText, 
+    "comprension_oral_larga": doRadioButtons, 
+    "comprension_escrita": writtenComprehension
+}
 
-if (currentUrl.includes("smasheducation.com") && supportedQuestions.includes(exerciseType)) {
+if (currentUrl.includes("smasheducation.com") && (exerciseType in supportedQuestions)) {
     var confirmation = confirm("Are you sure you want to complete this page?");
 
     if (confirmation == true) {
@@ -15,43 +28,15 @@ if (currentUrl.includes("smasheducation.com") && supportedQuestions.includes(exe
 }
 
 function executeExercise() {
-    switch(exerciseType) {
-        case "comprension_oral_larga":
-            document.getElementsByClassName("meadiarequiered-activities-next")[0].click()
-            document.getElementsByClassName("ms-act-section-btn-next2 floating-right")[0].click()
-            doRadioButtons()
-            break
-        case "escucha_selecciona":
-            associateAudioToImage()
-            break
-        case "foto_texto_escribe":
-            listenAndAnswerPhrase()
-            break
-        case "relaciona_imagen":
-            associateTextToImage()
-            break
-        case "relacionando":
-            associateVerbs()
-            break
-        case "palabras_recordar":
-            speakText()
-            break
-        case "revuelto":
-            reorderText()
-            break
-        case "ahorcado":
-            hangmanButOnRiver()
-            break
-        case "completando_texto_escribe":
-            multipleBlanksAfterListening()
-            break
-        case "completando_texto":
-            completeText()
-            break
-        case "comprension_escrita":
-            writtenComprehension()
-            break
+    console.log("Executing exercise... " + "Exercise type: " + exerciseType)
+    if (exerciseType == "comprension_audio") {
+        document.getElementsByClassName("meadiarequiered-activities-next")[0].click()
+    } else if (exerciseType == "comprension_oral_larga") {
+        document.getElementsByClassName("meadiarequiered-activities-next")[0].click()
+        document.getElementsByClassName("ms-act-section-btn-next2 floating-right")[0].click()
     }
+
+    supportedQuestions[exerciseType]();
 }
 
 // Radio buttons after listening to audio
@@ -72,6 +57,7 @@ function doRadioButtons() {
 
 // Associate verbs(this was a pain)
 function associateVerbs() {
+    console.log("Associating verbs...")
     let buttonElements = document.getElementsByClassName("carousel-item-wrapper ")
     let answerElements = document.getElementsByClassName("activity-o-card-answerzone")
 
