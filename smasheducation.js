@@ -95,10 +95,10 @@ function listenAndAnswerPhrase() {
 
 // Associate audio to image 
 function associateAudioToImage() {
-    let sentences = document.getElementsByClassName("carousel-item-wrapper")
+    let sentencesCount = document.getElementsByClassName("carousel-item-wrapper").length
 
-    for (let i = 0; i < sentences.length; i++) {
-        let currentSentence = sentences[i]
+    for (let i = 0; i < sentencesCount; i++) {
+        let currentSentence = document.getElementsByClassName("carousel-item-wrapper active")[0]
         let currentSentenceId = currentSentence.getAttribute("data-sequence")
 
         document.getElementById(`resultBox_${currentSentenceId}`).click()
