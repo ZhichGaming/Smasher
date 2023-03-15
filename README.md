@@ -13,7 +13,7 @@ Smasher is a Chrome extension that helps you automate your SmashEducation exerci
 Once the extension is installed, it will automatically detect when you are on a SmashEducation exercise page. When you start an exercise, Smasher will prompt you to record your answers from an alert. Press enter to fill in the answers and escape to cancel.
 
 ## Features
-Automatic answer filling: Smasher transcribes your spoken answers and fills them in automatically.
+Answer filling: Smasher fills in SmashEducation questions if the exercise is supported through an alert confirmation.
 ## Contributing
 
 If you encounter any bugs or have any feature suggestions, please create an issue on the repository. Pull requests are also welcome.
