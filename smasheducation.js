@@ -11,7 +11,8 @@ let supportedQuestions = {
     "completando_texto_escribe": multipleBlanksAfterListening, 
     "completando_texto": completeText, 
     "comprension_oral_larga": doRadioButtons, 
-    "comprension_escrita": writtenComprehension
+    "comprension_escrita": writtenComprehension,
+    "foto_texto_click": selectionFromImage
 }
 
 if (currentUrl.includes("smasheducation.com") && (exerciseType in supportedQuestions)) {
@@ -184,3 +185,12 @@ function writtenComprehension() {
     }
 }
 
+function selectionFromImage() {
+    let children = document.getElementsByClassName("g_click")[0].children
+
+    for (let i = 0; i < children.length; i++) {
+        if (children[i].getAttribute("data-sequence") == "1") {
+            children[i].children[1].click()
+        }
+    }
+}
